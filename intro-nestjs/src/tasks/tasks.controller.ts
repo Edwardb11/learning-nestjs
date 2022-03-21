@@ -6,7 +6,10 @@ import {
   Put,
   Body,
   Param,
+  Req,
+  Res,
 } from '@nestjs/common';
+import { Request, Response } from 'express';
 import { CreateTasksDto } from './dto/create-task.tdo';
 
 @Controller('tasks')
@@ -17,6 +20,10 @@ export class TasksController {
   getTasks(): { hello: string } {
     return { hello: 'Obteniendo una tarea' };
   }
+  // utilizando express
+  // getTask(@Req() req, @Res() res): Response {
+  //   return res.send('hello');
+  // }
   @Post()
   createTasks(@Body() task: CreateTasksDto): string {
     console.log(task);
