@@ -11,19 +11,29 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { CreateTasksDto } from './dto/create-task.tdo';
+import { TasksService } from './tasks.service';
+import { Task } from './interfaces/Task';
 
 @Controller('tasks')
 export class TasksController {
+  // instanciar servicio
+  constructor(private tasksService: TasksService) {}
+
   //  decorador Get
   @Get()
   // ruta atravez del metodo get y funciona atravez del metodo que esta abajo
-  getTasks(): { hello: string } {
-    return { hello: 'Obteniendo una tarea' };
+  getTasks(): Task[] {
+    return this.tasksService.getTasks();
   }
   // utilizando express
   // getTask(@Req() req, @Res() res): Response {
   //   return res.send('hello');
   // }
+
+  @Get(':taskId')
+  getTask(@Param('taskId') taskId: string) {
+    return this.tasksService.getTask(parseInt(taskId));
+  }
   @Post()
   createTasks(@Body() task: CreateTasksDto): string {
     console.log(task);
