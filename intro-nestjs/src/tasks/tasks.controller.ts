@@ -6,8 +6,8 @@ export class TasksController {
   //  decorador Get
   @Get()
   // ruta atravez del metodo get y funciona atravez del metodo que esta abajo
-  getTasks(): string {
-    return 'Obteniendo una tarea';
+  getTasks(): { hello: string } {
+    return { hello: 'Obteniendo una tarea' };
   }
   @Post()
   createTasks(@Body() task: CreateTasksDto): string {
