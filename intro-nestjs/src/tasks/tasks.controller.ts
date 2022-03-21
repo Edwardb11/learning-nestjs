@@ -1,4 +1,5 @@
-import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Put, Body } from '@nestjs/common';
+import { CreateTasksDto } from './dto/create-task.tdo';
 
 @Controller('tasks')
 export class TasksController {
@@ -9,7 +10,8 @@ export class TasksController {
     return 'Obteniendo una tarea';
   }
   @Post()
-  createTasks(): string {
+  createTasks(@Body() task: CreateTasksDto): string {
+    console.log(task);
     return 'Creando una tarea';
   }
   @Put()
