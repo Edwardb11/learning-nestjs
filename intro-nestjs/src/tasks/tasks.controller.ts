@@ -22,7 +22,7 @@ export class TasksController {
   //  decorador Get
   @Get()
   // ruta atravez del metodo get y funciona atravez del metodo que esta abajo
-  getTasks(): Task[] {
+  getTasks(): Promise<Task[]> {
     return this.tasksService.getTasks();
   }
   // utilizando express
@@ -32,12 +32,11 @@ export class TasksController {
 
   @Get(':taskId')
   getTask(@Param('taskId') taskId: string) {
-    return this.tasksService.getTask(parseInt(taskId));
+    return this.tasksService.getTask(taskId);
   }
   @Post()
-  createTasks(@Body() task: CreateTasksDto): string {
-    console.log(task);
-    return 'Creando una tarea';
+  createTasks(@Body() task: CreateTasksDto): Promise<Task> {
+    return this.tasksService.createTask(task);
   }
   @Put(':id')
   updateTasks(@Body() task: CreateTasksDto, @Param('id') id): string {
