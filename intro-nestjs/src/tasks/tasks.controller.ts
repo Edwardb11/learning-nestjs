@@ -22,8 +22,10 @@ export class TasksController {
     console.log(task);
     return 'Creando una tarea';
   }
-  @Put()
-  updateTasks(): string {
+  @Put(':id')
+  updateTasks(@Body() task: CreateTasksDto, @Param('id') id): string {
+    console.log(task);
+    console.log(id);
     return 'Actualizando una tarea';
   }
 
