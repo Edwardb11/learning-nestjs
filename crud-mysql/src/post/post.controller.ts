@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -8,32 +9,33 @@ import {
   Put,
 } from '@nestjs/common';
 import { CreatePostDto, EditPostDto } from './dtos';
+import { PostService } from './post.service';
 
 @Controller('post')
 export class PostController {
+  constructor(private readonly PostService: PostService) {}
+
   // metodos para rutas
   @Get()
   getMany() {
-    return 'OK';
+    return this.PostService.getMany();
   }
   // Path
   @Get(':id')
   getOne(@Param('id', ParseIntPipe) id: number) {
-    console.log(id);
-    return {
-      mensaje: 'getOne',
-    };
+    return this.PostService.getOne(id);
   }
   @Post()
   createOne(@Body() dto: CreatePostDto) {
-    return dto;
+    return this.PostService.createOne();
   }
 
   @Put(':id')
-  editOne(@Param('id') id: string, @Body() dto: EditPostDto) {
-    return dto;
+  editOne(@Param('id') id: number, @Body() dto: EditPostDto) {
+    return this.PostService.editOne(id);
   }
-
-  // @Delete(':id')
-  // deleteOne(){}
+  @Delete(':id')
+  deleteOne(@Param('id') id: number) {
+    return this.PostService.deleteOne(id);
+  }
 }
