@@ -1,5 +1,7 @@
-import { IsArray, IsBoolean, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsEnum, IsString } from 'class-validator';
 import { PostCategory } from '../enums/post-category.enum';
+import { EnumToString } from './../helpers/enumToString';
+
 // https://github.com/typestack/class-validator
 export class CreatePostDto {
   @IsString()
@@ -14,7 +16,11 @@ export class CreatePostDto {
   @IsString()
   content: string;
 
-  @IsString()
+  @IsEnum(PostCategory, {
+    message: `Opcion invalida. Las opciones correctas son ${EnumToString(
+      PostCategory,
+    )}`,
+  })
   category: PostCategory;
 
   @IsArray()
