@@ -25,6 +25,9 @@ export class Post {
   @Column({ type: 'varchar', length: 100, nullable: true })
   category: string;
 
+  @Column({ type: 'simple-array' })
+  tags: string[];
+
   @Column({ type: 'bool', default: true })
   status: boolean;
   // Para generar fecha
