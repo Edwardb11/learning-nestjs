@@ -18,12 +18,16 @@ export class PostController {
   // metodos para rutas
   @Get()
   async getMany() {
-    return await this.PostService.getMany();
+    const data = await this.PostService.getMany();
+    return {
+      message: 'Peticion correcta',
+      data,
+    };
   }
   // Path
   @Get(':id')
   getOne(@Param('id', ParseIntPipe) id: number) {
-    return this.PostService.getOne(id);
+    this.PostService.getOne(id);
   }
   @Post()
   createOne(@Body() dto: CreatePostDto) {
