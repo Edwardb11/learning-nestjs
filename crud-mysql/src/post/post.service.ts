@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { error } from 'console';
 import { Repository } from 'typeorm';
 import { CreatePostDto, EditPostDto } from './dtos';
 import { Post } from './entities/post.entity';
@@ -7,21 +8,28 @@ import { Post } from './entities/post.entity';
 @Injectable()
 export class PostService {
   constructor(
-    @InjectRepository(Post) private readonly postRepotory: Repository<Post>,
+    @InjectRepository(Post) private readonly postRepository: Repository<Post>,
   ) {}
   async getMany(): Promise<Post[]> {
-    return await this.postRepotory.find();
+    return await this.postRepository.find();
   }
-  getOne(id: number) {
-    return { ok: 'getOne' };
+  async getOne(id: number) {
+    const post = await this.postRepository.findOne(id);
+    if (!post)
+      throw new NotFoundException('Post does not exist or unauthorized');
+    return post;
   }
-  createOne(dto: CreatePostDto) {
-    return { ok: 'createOne' };
+  async createOne(dto: CreatePostDto) {
+    const post = this.postRepository.create(dto);
+    return await this.postRepository.save(post);
   }
-  editOne(id: number, dto: EditPostDto) {
-    return { ok: 'editOne' };
+  async editOne(id: number, dto: EditPostDto) {
+    const post = await this.postRepository.findOne(id);
+    if (!post) throw new NotFoundException('No existe el elemento solicitado');
+    const editedPost = Object.assign(post, dto);
+    return await this.postRepository.save(editedPost);
   }
-  deleteOne(id: number) {
-    return { ok: 'deleteOne' };
+  async deleteOne(id: number) {
+    return await this.postRepository.delete(id);
   }
 }
