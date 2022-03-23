@@ -6,7 +6,7 @@ import { Post } from './entities/post.entity';
 
 @Injectable()
 export class PostService {
-  constructor(@InjectRepository(Post) postRepotory: Repository<Post>) {}
+  constructor(@InjectRepository(Post) private postRepotory: Repository<Post>) {}
   getMany() {
     return { ok: 'getMany' };
   }
