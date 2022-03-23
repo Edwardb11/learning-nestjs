@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { PostController } from './post.controller';
 import { PostService } from './post.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Post } from './entities/user.entity';
+import { Post } from './entities/post.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Post])],
