@@ -26,20 +26,24 @@ export class PostController {
   }
   // Path
   @Get(':id')
-  getOne(@Param('id', ParseIntPipe) id: number) {
-    this.PostService.getOne(id);
+  async getById(@Param('id', ParseIntPipe) id: number) {
+    const data = await this.PostService.getOne(id);
+    return { data };
   }
   @Post()
-  createOne(@Body() dto: CreatePostDto) {
-    return this.PostService.createOne(dto);
+  async createOne(@Body() dto: CreatePostDto) {
+    const data = await this.PostService.createOne(dto);
+    return { message: 'Post creado', data };
   }
 
   @Put(':id')
-  editOne(@Param('id') id: number, @Body() dto: EditPostDto) {
-    return this.PostService.editOne(id, dto);
+  async editOne(@Param('id') id: number, @Body() dto: EditPostDto) {
+    const data = await this.PostService.editOne(id, dto);
+    return { message: 'Post editado', data };
   }
   @Delete(':id')
-  deleteOne(@Param('id') id: number) {
-    return this.PostService.deleteOne(id);
+  async deleteOne(@Param('id') id: number) {
+    const data = await this.PostService.deleteOne(id);
+    return { message: 'Post eliminado', data };
   }
 }
