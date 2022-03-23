@@ -3,7 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PostModule } from './post/post.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Post } from './post/entities/post.entity';
 
 @Module({
   imports: [
@@ -14,8 +13,9 @@ import { Post } from './post/entities/post.entity';
       username: 'root',
       password: '8EvCf48Yd1bB7vI52mmR',
       database: 'railway',
-      entities: [Post],
+      entities: [__dirname + './**/**/&entity{.ts,.js}'],
       synchronize: true,
+      autoLoadEntities: true,
     }),
 
     PostModule,
