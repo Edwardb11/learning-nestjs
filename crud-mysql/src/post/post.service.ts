@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreatePostDto, EditPostDto } from './dtos';
+import { Post } from './entities/post.entity';
 
 @Injectable()
 export class PostService {
+  constructor(@InjectRepository(Post) postRepotory: Repository<Post>) {}
   getMany() {
     return { ok: 'getMany' };
   }
