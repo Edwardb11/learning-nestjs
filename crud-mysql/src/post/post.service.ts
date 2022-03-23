@@ -6,9 +6,11 @@ import { Post } from './entities/post.entity';
 
 @Injectable()
 export class PostService {
-  constructor(@InjectRepository(Post) private postRepotory: Repository<Post>) {}
-  getMany() {
-    return { ok: 'getMany' };
+  constructor(
+    @InjectRepository(Post) private readonly postRepotory: Repository<Post>,
+  ) {}
+  async getMany(): Promise<Post[]> {
+    return await this.postRepotory.find();
   }
   getOne(id: number) {
     return { ok: 'getOne' };

@@ -17,8 +17,8 @@ export class PostController {
 
   // metodos para rutas
   @Get()
-  getMany() {
-    return this.PostService.getMany();
+  async getMany() {
+    return await this.PostService.getMany();
   }
   // Path
   @Get(':id')
