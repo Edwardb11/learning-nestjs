@@ -16,8 +16,8 @@ export class PhotosService {
       throw new NotFoundException('profile not found');
     }
     const newPhoto = new Photo();
-    newPhoto.profile = await this.profileRepo.findOne(data.profileId);
     newPhoto.url = data.url;
+    newPhoto.profile = profile1;
     return this.photoRepo.save(newPhoto);
   }
 }

@@ -20,5 +20,5 @@ export class Photo {
   @ManyToOne(() => Profile, (profile) => profile.photo)
   // Nombre de la relacion en la tabla de la bd
   @JoinColumn({ name: 'profile_id' })
-  profile: Profile[];
+  profile: Profile;
 }

@@ -18,4 +18,6 @@ export class UserDto {
   @ApiProperty({ type: String })
   @IsString()
   lastName: string;
+
+  Photo: [];
 }
