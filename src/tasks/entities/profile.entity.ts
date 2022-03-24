@@ -23,7 +23,7 @@ export class Profile {
   @OneToOne(() => User, (user) => user.profile)
   user: User;
 
-  // Un perfil tiene mucha Foto relacion de ono a mucho
+  // Un perfil tiene mucha Foto. relacion de ono a mucho
   @OneToMany(() => Photo, (photo) => photo.profile)
   photo: Photo[];
 }

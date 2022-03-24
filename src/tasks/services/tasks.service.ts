@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Task } from './../entities/task.entity';
+import { TasksDto } from './../dtos/crerate-tasks.dto';
 @Injectable()
 export class TasksService {
   constructor(@InjectRepository(Task) private tasksRepo: Repository<Task>) {}
@@ -14,13 +15,13 @@ export class TasksService {
     return this.tasksRepo.findOne(id);
   }
 
-  async create(body: any) {
+  async create(body: TasksDto) {
     const newTask = new Task();
     newTask.name = body.name;
     return this.tasksRepo.save(newTask);
   }
 
-  async update(id: number, body: any) {
+  async update(id: number, body: TasksDto) {
     const task = await this.tasksRepo.findOne(id);
     this.tasksRepo.merge(task, body);
     return this.tasksRepo.save(task);

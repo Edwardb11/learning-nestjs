@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Profile } from '../entities/profile.entity';
 import { Photo } from './../entities/photo.entity';
-
 @Injectable()
 export class PhotosService {
   constructor(
@@ -11,19 +10,13 @@ export class PhotosService {
     @InjectRepository(Profile) private profileRepo: Repository<Profile>,
   ) {}
 
-  // Metodos
   async addPhoto(data: any) {
-    // Encontrar perfil
-    const profile = await this.profileRepo.findOne(data.profileId);
-    // Instancia de la foto
-    const newPhoto = new Photo();
-    // Si no existe manejar un error
-    if (!profile) {
+    const profile1 = await this.profileRepo.findOne(data.profileId);
+    if (!profile1) {
       throw new NotFoundException('profile not found');
     }
-    // Asignar atributos
-    console.log(profile);
-    newPhoto.profile = profile;
+    const newPhoto = new Photo();
+    newPhoto.profile = await this.profileRepo.findOne(data.profileId);
     newPhoto.url = data.url;
     return this.photoRepo.save(newPhoto);
   }

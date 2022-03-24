@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Profile } from '../entities/profile.entity';
 import { User } from '../entities/user.entity';
+import { UserDto } from './../dtos/crerate-user.dto';
 
 @Injectable()
 export class UserService {
@@ -16,7 +17,7 @@ export class UserService {
     });
   }
 
-  async create(body: any) {
+  async create(body: UserDto) {
     const profile = new Profile();
     profile.name = body.name;
     profile.lastName = body.lastName;
