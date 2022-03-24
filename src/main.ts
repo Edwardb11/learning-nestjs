@@ -13,7 +13,7 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
   logger.log(`El servidor esta corriendo en ${await app.getUrl()}`);
 }
 bootstrap();
