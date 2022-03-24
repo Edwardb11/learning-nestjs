@@ -19,7 +19,7 @@ export class User {
   @Column()
   password: string;
 
-  // Rekacion one to one y user carga con la relacion
+  // Rekacion one to one y user carga con la relacion FORENG KEY
   @OneToOne(() => Profile)
   @JoinColumn({ name: 'profile_id' })
   profile: Profile;

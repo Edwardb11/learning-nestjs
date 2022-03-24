@@ -7,7 +7,7 @@ export class TasksService {
   constructor(@InjectRepository(Task) private tasksRepo: Repository<Task>) {}
 
   findAll() {
-    return this.tasksRepo.find({ relations: ['profile'] });
+    return this.tasksRepo.find({ relations: ['profile', 'profile.photos'] });
   }
 
   findOne(id: number) {
