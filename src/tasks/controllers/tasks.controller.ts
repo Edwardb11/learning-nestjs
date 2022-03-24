@@ -1,32 +1,41 @@
 import { TasksService } from './../services/tasks.service';
-import { Controller, Get, Post, Put, Delete } from '@nestjs/common';
-
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('Tasks')
 @Controller('api/tasks')
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   @Get()
   findAll() {
-    return 'hello';
+    return this.tasksService.findAll();
   }
 
-  @Get()
-  findOne() {
-    return 'hello';
+  @Get(':id')
+  findOne(@Param('id') id: number) {
+    return this.tasksService.findOne(id);
   }
 
   @Post()
-  create() {
-    return 'hello';
+  create(@Body() body: any) {
+    return this.tasksService.create(body);
   }
 
-  @Put()
-  update() {
-    return 'hello';
+  @Put(':id')
+  update(@Param('id') id: number, @Body() body: any) {
+    return this.tasksService.update(id, body);
   }
 
-  @Delete()
-  delete() {
-    return 'hello';
+  @Delete(':id')
+  delete(@Param('id') id: number) {
+    return;
   }
 }
