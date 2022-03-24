@@ -8,10 +8,10 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { CreatePostDto, EditPostDto } from './dtos';
 import { PostService } from './post.service';
-@ApiTags('Post')
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('Blog')
 @Controller('post')
 export class PostController {
   constructor(private readonly PostService: PostService) {}
@@ -31,6 +31,7 @@ export class PostController {
     const data = await this.PostService.getOne(id);
     return { data };
   }
+
   @Post()
   async createOne(@Body() dto: CreatePostDto) {
     const data = await this.PostService.createOne(dto);
