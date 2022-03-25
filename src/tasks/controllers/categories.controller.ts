@@ -7,7 +7,7 @@ export class CategoriesController {
   constructor(private categoriesService: CategoriesService) {}
 
   @Post()
-  addCategory(@Body() body: any) {
+  addCategory(@Body() body: string) {
     return this.categoriesService.create(body);
   }
 }
