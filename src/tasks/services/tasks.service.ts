@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Task } from './../entities/task.entity';
 import { TasksDto } from './../dtos/crerate-tasks.dto';
 import { Category } from '../entities/category.entity';
+import { PaginationQueryDto } from '../dtos';
 @Injectable()
 export class TasksService {
   constructor(
@@ -11,8 +12,8 @@ export class TasksService {
     @InjectRepository(Category) private categoryRepo: Repository<Category>,
   ) {}
 
-  findAll() {
-    return this.tasksRepo.find();
+  async findAll({ limit, offset }: PaginationQueryDto) {
+    return await this.tasksRepo.find({ skip: offset, take: limit });
   }
 
   findOne(id: number) {

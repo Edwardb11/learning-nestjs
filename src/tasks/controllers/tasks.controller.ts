@@ -7,16 +7,18 @@ import {
   Delete,
   Param,
   Body,
+  Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { PaginationQueryDto } from '../dtos';
 @ApiTags('Tasks')
 @Controller('api/tasks')
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   @Get()
-  findAll() {
-    return this.tasksService.findAll();
+  findAll(@Query() pagination: PaginationQueryDto) {
+    return this.tasksService.findAll(pagination);
   }
 
   @Get(':id')
