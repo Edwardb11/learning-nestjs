@@ -13,7 +13,7 @@ export class UserService {
   ) {}
   findAll() {
     return this.userRepo.find({
-      relations: ['profile', 'profile.photo'],
+      relations: ['profile', 'profile.photos'],
     });
   }
 

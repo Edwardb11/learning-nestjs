@@ -10,10 +10,13 @@ import { UserController } from './controllers/user.controller';
 import { Photo } from './entities/photo.entity';
 import { PhotosService } from './services/photos.service';
 import { PhotosController } from './controllers/photos.controller';
+import { Category } from './entities/category.entity';
+import { CategoriesService } from './services/categories.service';
+import { CategoriesController } from './controllers/categories.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Task, User, Profile, Photo])],
-  providers: [TasksService, UserService, PhotosService],
-  controllers: [TasksController, UserController, PhotosController],
+  imports: [TypeOrmModule.forFeature([Task, User, Profile, Photo, Category])],
+  providers: [TasksService, UserService, PhotosService, CategoriesService],
+  controllers: [TasksController, UserController, PhotosController, CategoriesController],
 })
 export class TasksModule {}

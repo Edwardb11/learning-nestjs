@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
 // https://github.com/typestack/class-validator
 export class TasksDto {
@@ -10,4 +10,6 @@ export class TasksDto {
   @ApiProperty({ type: Boolean })
   @IsBoolean()
   completed: boolean;
+
+  categoriesIds: any;
 }

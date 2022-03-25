@@ -3,21 +3,30 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Task } from './../entities/task.entity';
 import { TasksDto } from './../dtos/crerate-tasks.dto';
+import { Category } from '../entities/category.entity';
 @Injectable()
 export class TasksService {
-  constructor(@InjectRepository(Task) private tasksRepo: Repository<Task>) {}
+  constructor(
+    @InjectRepository(Task) private tasksRepo: Repository<Task>,
+    @InjectRepository(Category) private categoryRepo: Repository<Category>,
+  ) {}
 
   findAll() {
-    return this.tasksRepo.find({ relations: ['profile', 'profile.photos'] });
+    return this.tasksRepo.find();
   }
 
   findOne(id: number) {
-    return this.tasksRepo.findOne(id);
+    return this.tasksRepo.findOne(id, {
+      relations: ['categories'],
+    });
   }
 
   async create(body: TasksDto) {
     const newTask = new Task();
     newTask.name = body.name;
+    const categoriesIds = body.categoriesIds;
+    const categories = await this.categoryRepo.findByIds(categoriesIds);
+    newTask.categories = categories;
     return this.tasksRepo.save(newTask);
   }
 
