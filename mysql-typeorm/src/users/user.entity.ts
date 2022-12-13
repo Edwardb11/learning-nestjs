@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Profile } from './profile.entity';
-import { Post } from '../posts/post.entity';
+import { Posts } from '../posts/post.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -32,6 +32,6 @@ export class User {
   profile: Profile;
 
   // Usuario relacionado con POST al revez ahora de 1 a mucho 1 usuario puede tener muchos post
-  @OneToMany(() => Post, (post) => post.auhor)
-  posts: Post[];
+  @OneToMany(() => Posts, (post) => post.auhtor)
+  posts: Posts[];
 }
