@@ -15,7 +15,15 @@ export class UsersService {
     return this.userRepository.save(newUser);
   }
 
-  getUser() {
+  getUsers() {
     return this.userRepository.find();
+  }
+
+  getUser(id: number) {
+    return this.userRepository.findOne({
+      where: {
+        id,
+      },
+    });
   }
 }
