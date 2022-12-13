@@ -14,6 +14,6 @@ export class User {
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   CreateAt: Date;
 
-  @Column()
+  @Column({ nullable: true })
   authStrategy: string;
 }
