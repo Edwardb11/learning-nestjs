@@ -1,3 +1,4 @@
+import { Posts } from './../posts/posts.entity';
 import {
   Column,
   Entity,
@@ -7,7 +8,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Profile } from './profile.entity';
-import { Posts } from '../posts/post.entity';
 
 @Entity({ name: 'users' })
 export class User {
