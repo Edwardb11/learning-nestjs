@@ -2,10 +2,12 @@ import {
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Profile } from './profile.entity';
+import { Post } from '../posts/post.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -28,4 +30,8 @@ export class User {
   // Iniciar relacion (este tendra la columna y se pone Join Colum)
   @JoinColumn()
   profile: Profile;
+
+  // Usuario relacionado con POST al revez ahora de 1 a mucho 1 usuario puede tener muchos post
+  @OneToMany(() => Post, (post) => post.auhor)
+  posts: Post[];
 }
