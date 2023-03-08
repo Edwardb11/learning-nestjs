@@ -10,12 +10,13 @@ import {
   HttpStatus,
   HttpCode,
   Res,
-  ParseIntPipe,
+  // ParseIntPipe,
 } from '@nestjs/common';
 
 // import { Response } from 'express';
 
 import { ProductsService } from './../services/products.service';
+import { ParseIntPipe } from 'src/common/parse-int/parse-int.pipe';
 
 @Controller('products')
 export class ProductsController {
