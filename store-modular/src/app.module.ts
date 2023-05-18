@@ -5,12 +5,13 @@ import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { lastValueFrom } from 'rxjs';
+import { DatabaseModule } from './database/database.module';
 
 const API_KEY = '12345634';
 const API_KEY_PROD = 'PROD1212121SA';
 
 @Module({
-  imports: [HttpModule, UsersModule, ProductsModule],
+  imports: [HttpModule, UsersModule, ProductsModule, DatabaseModule],
   controllers: [AppController],
   providers: [
     AppService,
