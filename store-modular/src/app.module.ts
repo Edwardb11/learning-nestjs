@@ -8,15 +8,17 @@ import { lastValueFrom } from 'rxjs';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { enviroments } from 'enviroments';
+import config from '../config';
 
-const API_KEY = '12345634';
-const API_KEY_PROD = 'PROD1212121SA';
+// const API_KEY = '12345634';
+// const API_KEY_PROD = 'PROD1212121SA';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: enviroments[process.env.NODE_ENV] || '.env',
       isGlobal: true,
+      load: [config],
     }),
     HttpModule,
     UsersModule,
