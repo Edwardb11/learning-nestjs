@@ -11,8 +11,7 @@ import {
 
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 import { UsersService } from '../service/users.service';
-import { ApiTags } from '@nestjs/swagger';
-@ApiTags('users')
+
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
@@ -21,10 +20,12 @@ export class UsersController {
   findAll() {
     return this.usersService.findAll();
   }
+
   @Get('tasks')
   getTasks() {
     return this.usersService.getTasks();
   }
+
   @Get(':id')
   get(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
