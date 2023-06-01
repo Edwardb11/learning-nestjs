@@ -1,22 +1,12 @@
-import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { Product } from './../entities/product.entity';
 import { CreateProductDto, UpdateProductDto } from './../dtos/products.dtos';
 
 @Injectable()
 export class ProductsService {
-  private counterId = 1;
-  private products: Product[] = [
-    {
-      id: 1,
-      name: 'Producto 1',
-      description: 'lorem lorem',
-      price: 10000,
-      stock: 300,
-      image: 'https://i.imgur.com/U4iGx1j.jpeg',
-    },
-  ];
   constructor(
     @InjectRepository(Product) private productRepo: Repository<Product>,
   ) {}
@@ -27,15 +17,14 @@ export class ProductsService {
 
   async findOne(id: number) {
     const product = await this.productRepo.findOne({
-      where: {
-        id,
-      },
+      where: { id },
     });
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
     }
     return product;
   }
+
   create(data: CreateProductDto) {
     // const newProduct = new Product();
     // newProduct.image = data.image;
@@ -50,9 +39,7 @@ export class ProductsService {
 
   async update(id: number, changes: UpdateProductDto) {
     const product = await this.productRepo.findOne({
-      where: {
-        id,
-      },
+      where: { id },
     });
     this.productRepo.merge(product, changes);
     return this.productRepo.save(product);
