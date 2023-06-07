@@ -8,10 +8,10 @@ import {
   Delete,
   ParseIntPipe,
 } from '@nestjs/common';
-
-import { CreateBrandDto, UpdateBrandDto } from '../dtos/brand.dtos';
-import { BrandsService } from '../services/brands.service';
 import { ApiTags } from '@nestjs/swagger';
+
+import { BrandsService } from '../services/brands.service';
+import { CreateBrandDto, UpdateBrandDto } from '../dtos/brand.dtos';
 
 @ApiTags('brands')
 @Controller('brands')
@@ -19,8 +19,8 @@ export class BrandsController {
   constructor(private brandsService: BrandsService) {}
 
   @Get()
-  findAll() {
-    return this.brandsService.findAll();
+  async findAll() {
+    return await this.brandsService.findAll();
   }
 
   @Get(':id')

@@ -9,13 +9,18 @@ import { CreateBrandDto, UpdateBrandDto } from '../dtos/brand.dtos';
 export class BrandsService {
   constructor(@InjectRepository(Brand) private brandsRepo: Repository<Brand>) {}
 
-  findAll() {
-    return this.brandsRepo.find();
+  async findAll() {
+    console.log('object');
+    console.log(await this.brandsRepo.find());
+    return await this.brandsRepo.find();
   }
 
   findOne(id: number) {
     const product = this.brandsRepo.findOne({
-      where: { id },
+      relations: ['products'],
+      where: {
+        id,
+      },
     });
     if (!product) {
       throw new NotFoundException(`Brand #${id} not found`);
