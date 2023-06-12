@@ -23,7 +23,7 @@
     "migrations:run": "npm run typeorm -- migration:run",
     "migrations:show": "npm run typeorm -- migration:show",
     "migrations:drop": "npm run typeorm -- migration:drop",
-    "typeorm:revert-migration": "npm run typeorm -d ./typeorm.data-source.ts -- migration:revert",
+    "migration:revert": "npm run typeorm -- migration:revert",
     "typeorm:clear": "npm run typeorm cache:clear",
     "seed": "ts-node -r tsconfig-paths/register src/seed.ts"
   },
