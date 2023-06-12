@@ -16,7 +16,11 @@ import { Response } from 'express';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import { ParseIntPipe } from '../../common/parse-int.pipe';
-import { CreateProductDto, UpdateProductDto } from '../dtos/products.dtos';
+import {
+  CreateProductDto,
+  FilterProductsDto,
+  UpdateProductDto,
+} from '../dtos/products.dtos';
 import { ProductsService } from './../services/products.service';
 
 @ApiTags('products')
@@ -24,19 +28,24 @@ import { ProductsService } from './../services/products.service';
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
+  // PAGINACION
+  // @Get()
+  // @ApiOperation({ summary: 'List of products' })
+  // getProducts(
+  //   @Query('limit') limit = 100,
+  //   @Query('offset') offset = 0,
+  //   @Query('brand') brand: string,
+  // ) {
+  //   // return {
+  //   //   message: `products limit=> ${limit} offset=> ${offset} brand=> ${brand}`,
+  //   // };
+  //   return this.productsService.findAll();
+  // }
   @Get()
-  @ApiOperation({ summary: 'List of products' })
-  getProducts(
-    @Query('limit') limit = 100,
-    @Query('offset') offset = 0,
-    @Query('brand') brand: string,
-  ) {
-    // return {
-    //   message: `products limit=> ${limit} offset=> ${offset} brand=> ${brand}`,
-    // };
-    return this.productsService.findAll();
+  @ApiOperation({ summary: 'List of products products?limit=1&offset=1' })
+  getProducts(@Query() params: FilterProductsDto) {
+    return this.productsService.findAll(params);
   }
-
   @Get('filter')
   getProductFilter() {
     return `yo soy un filter`;
