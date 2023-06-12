@@ -42,7 +42,10 @@ export class ProductsController {
   //   return this.productsService.findAll();
   // }
   @Get()
-  @ApiOperation({ summary: 'List of products products?limit=1&offset=1' })
+  @ApiOperation({
+    summary:
+      'List of products  products?limit=1&offset=1  && /products?minPrice=1&maxPrice=20',
+  })
   getProducts(@Query() params: FilterProductsDto) {
     return this.productsService.findAll(params);
   }
