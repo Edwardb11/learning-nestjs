@@ -10,6 +10,7 @@ import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 
 import { ProductsService } from './../../products/services/products.service';
 import { CustomersService } from './customers.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -40,12 +41,19 @@ export class UsersService {
     return user;
   }
 
+  findByEmail(email: string) {
+    return this.userRepo.findOne({ where: { email } });
+  }
+
   async create(data: CreateUserDto) {
     const newUser = this.userRepo.create(data);
+    const hashPassword = await bcrypt.hash(newUser.password, 10);
+    newUser.password = hashPassword;
     if (data.customerId) {
       const customer = await this.customersService.findOne(data.customerId);
       newUser.customer = customer;
     }
+    console.log(newUser);
     return this.userRepo.save(newUser);
   }
 
