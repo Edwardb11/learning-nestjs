@@ -24,6 +24,7 @@ import * as Joi from 'joi';
       validationSchema: Joi.object({
         API_KEY: Joi.number().required(),
         DATABASE_NAME: Joi.string().required(),
+        JWT_SECRET: Joi.number().required(),
         DATABASE_PORT: Joi.number().required(),
       }),
     }),
