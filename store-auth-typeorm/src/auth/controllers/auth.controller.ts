@@ -1,7 +1,6 @@
-import { Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../services/auth.service';
-import { User } from 'src/users/entities/user.entity';
 import { LoginDto } from '../models/login.model';
 
 @Controller('auth')
@@ -9,14 +8,16 @@ export class AuthController {
   constructor(private authService: AuthService) {}
   @UseGuards(AuthGuard('local'))
   @Post('login')
-  async login(@Req() login: LoginDto) {
-    const user = await this.authService.validateUser(
-      login.user.email,
-      login.user.password,
-    );
+  async login(@Body() login: LoginDto) {
+    const { email, password } = login;
+    // validamos al usuario
+
+    const user = await this.authService.validateUser(email, password);
     // enviamos al usuario
-    const sesion = this.authService.generateJWT(user);
+
+    const sesion = await this.authService.generateJWT(user);
     // retornamos la sesión
+
     return sesion;
   }
 }
